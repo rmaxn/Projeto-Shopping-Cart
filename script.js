@@ -1,36 +1,6 @@
-const URL = `https://api.mercadolibre.com/sites/MLB/search?q=`;
+const URL = 'https://api.mercadolibre.com/sites/MLB/search?q=';
 
-window.onload = function onload() {
-  buscarProdutos(URL + 'computador')
-};
-
-const buscarProdutos = (url) => {
-  const callback = (resolve, reject) => {
-    const listProducts = fetch(url);
-    listProducts.then(function(response) {
-      if (!response.ok) throw new Error('Erro' + response.status)
-      return response.json()
-    })
-    .then((resolve) => {
-      const { results } = resolve
-      mapProductsToFunctions(results);
-    })
-    .then(resolve)
-    .catch(reject);
-  }
-  return new Promise(callback);
-};
-
-
-
-function mapProductsToFunctions(results) {
-  const SECTION = document.querySelector('.items');
-  let data = results.forEach((item) => {
-    SECTION.appendChild(createProductItemElement(item))
-    createCartItemElement(item)
-  });
-  return data;
-}
+window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -58,18 +28,46 @@ function createProductItemElement({ id, title, thumbnail }) {
   return section;
 }
 
+/*
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-}
+} */
 
 function createCartItemElement({ id, title, price }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
+  /* li.addEventListener('click', cartItemClickListener); */
   return li;
 }
+
+function mapProductsToFunctions({ results }) {
+  const SECTION = document.querySelector('.items');
+  const data = results.forEach((item) => {
+    SECTION.appendChild(createProductItemElement(item));
+    createCartItemElement(item);
+  });
+  return data;
+}
+
+const buscarProdutos = (url) => {
+  const callback = (resolve, reject) => {
+    const listProducts = fetch(url);
+    listProducts.then(function (response) {
+      if (!response.ok) throw new Error(`Erro${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      mapProductsToFunctions(data);
+    })
+    .then(resolve)
+    .catch(reject);
+  };
+  return new Promise(callback);
+};
+
+buscarProdutos(`${URL}computador`);
