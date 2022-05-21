@@ -1,7 +1,5 @@
 const URL = 'https://api.mercadolibre.com/sites/MLB/search?q=';
 
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -70,4 +68,6 @@ const buscarProdutos = (url) => {
   return new Promise(callback);
 };
 
-buscarProdutos(`${URL}computador`);
+window.onload = function onload() {
+  buscarProdutos(`${URL}computador`);
+};
