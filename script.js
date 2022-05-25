@@ -30,16 +30,17 @@ function createProductItemElement({ id, title, thumbnail }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
+*/
 function cartItemClickListener(event) {
   // coloque seu código aqui
-} */
+  event.target.remove();
+}
 
 function createCartItemElement({ id, title, price }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
-  /* li.addEventListener('click', cartItemClickListener); */
+  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
