@@ -95,7 +95,15 @@ function mapProductsToFunctions({ results }) {
 }
 
 async function buscarProdutos(url) {
-  const response = await fetch(url).then((res) => res.json());
+  const loading = document.querySelector('.loading');
+  const response = await fetch(url).then((res) => {
+    if (!res) {
+      loading.innerText = 'loading...';
+    } else {
+      loading.remove();
+      return res.json();
+    }
+  });
   mapProductsToFunctions(response);
   addToCart();
   return response;
