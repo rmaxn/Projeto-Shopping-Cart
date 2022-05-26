@@ -23,3 +23,10 @@ Projeto de conclusão do módulo 9 da Trybe. O objetivo do projeto é a criaçã
 Seu projeto deve ter o comportamento parecido com o do gif abaixo quando finalizado, **não se preocupe em replicar o visual, o gif so ilustra o comportamento**:
 
 ![Project Gif](./out.gif)
+
+---
+
+
+### Resultado Final
+
+### https://rmaxn.github.io/shopping-Cart/
