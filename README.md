@@ -29,4 +29,4 @@ Seu projeto deve ter o comportamento parecido com o do gif abaixo quando finaliz
 
 ### Resultado Final
 
-### https://rmaxn.github.io/shopping-Cart/
+### https://rmaxn.github.io/shopping-cart/
