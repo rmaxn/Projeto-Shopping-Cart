@@ -1,6 +1,7 @@
 const URL = 'https://api.mercadolibre.com/sites/MLB/search?q=';
 const OL = document.getElementsByClassName('cart__items');
 let CART = [];
+const P = document.getElementsByClassName('total-price');
 
 async function fetchProduct(id) {
   const item = `https://api.mercadolibre.com/items/${id}`;
@@ -43,18 +44,22 @@ function sumCart(cart, value = 0) {
     CART.push(value);
   }
   const total = cart.reduce((a, b) => a + b, 0);
-  const p = document.getElementsByClassName('total-price');
-  p[0].innerText = total;
+
+  P[0].innerText = `Total: R$ ${parseFloat(total.toFixed(2))}`;
+  return total;
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
   const string = event.target.innerText;
-  const arr = string.split('PRICE: $');
+  const arr = string.split('Valor: R$');
   CART.forEach((n, i) => {
     if (n === parseFloat(arr[1])) {
       CART.splice(i, 1);
       sumCart(CART);
+    } 
+    if (CART.length === 0) {
+      P[0].innerHTML = 'Nada no carrinho.';
     }
   });
   saveToStorage(OL[0]);
@@ -63,7 +68,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({ id, title, price }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
+  li.innerText = `ID: ${id} | Nome: ${title} | Valor: R$ ${price}`;
   li.addEventListener('click', cartItemClickListener);
   if (!saveToStorage(OL[0])) {
     return li;
@@ -124,5 +129,6 @@ window.onload = function onload() {
     OL[0].innerHTML = '';
     sumCart(CART);
     saveToStorage(OL[0]);
+    P[0].innerHTML = 'Nada no carrinho.';
   });
 };

@@ -1,3 +1,11 @@
+* {
+  font-family: 'Roboto';
+}
+
+ol {
+  list-style-type: disc;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
